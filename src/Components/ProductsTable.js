@@ -1,7 +1,6 @@
 import React from "react";
-import UsersTableRow from "./UsersTableRow";
 
-const UsersTable = ({datadb, setDataToEdit}) => {
+const ProductsTable = ({datadb}) => {
     return (
         <div>
             <table className="table table-borderless table-stripped table-hover">
@@ -9,22 +8,25 @@ const UsersTable = ({datadb, setDataToEdit}) => {
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Actions</th>
+                        <th>Serie</th>
+                        <th>Length</th>
+                        <th>Height</th>
                     </tr>
                 </thead>
                 <tbody>
                     { datadb.length > 0 ? (
                         datadb.map((el) => (
-                            <UsersTableRow
-                                key={el.id}
-                                el={el}
-                                setDataToEdit = {setDataToEdit}
-                            />
+                            <tr>
+                                <td>{el.id}</td>
+                                <td>{el.name}</td>
+                                <td>{el.serie}</td>
+                                <td>{el.length}</td>
+                                <td>{el.height}</td>
+                            </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="4">Records not found...</td>
+                            <td colSpan="5">Records not found...</td>
                         </tr>
                     )}
                 </tbody>
@@ -33,4 +35,4 @@ const UsersTable = ({datadb, setDataToEdit}) => {
     );
 }
 
-export default UsersTable;
+export default ProductsTable;
