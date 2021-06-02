@@ -32,11 +32,26 @@ function App() {
     Http().PostData(urlPost, datadb)
     .then(data => {
       if (data.errors){
-        alert(data.messsage)
+        var t = document.getElementById("error-alert");
+        t.classList.toggle("d-none");
+        t.innerHTML  = "";
+        Object.entries(data.errors).forEach(([key, value]) => {     
+          t.insertAdjacentHTML("beforeend",`<li>${value[0]}</li>`);
+        });        
+        setTimeout(() => {
+          var t = document.getElementById("error-alert");
+          t.classList.toggle("d-none");
+        }, 2500)
       }else{
+        var t = document.getElementById("success-alert");
+        t.classList.toggle("d-none");
+        t.innerHTML = `<li>${data.messsage}</li>`;
         datadb.id = data.data.id
         setUsers([...users, datadb])
-        alert(data.messsage)
+        setTimeout(() => {
+          var t = document.getElementById("success-alert");
+          t.classList.toggle("d-none");
+        }, 2500)
       }
     });
   }
@@ -45,12 +60,27 @@ function App() {
     Http().UpdateData(urlEdit, datadb.id, datadb)
     .then(data => {
       if (data.errors){
-        alert(data.messsage)
+        var t = document.getElementById("error-alert");
+        t.classList.toggle("d-none");
+        t.innerHTML  = "";
+        Object.entries(data.errors).forEach(([key, value]) => {     
+          t.insertAdjacentHTML("beforeend",`<li>${value[0]}</li>`);
+        });
+        setTimeout(() => {
+          var t = document.getElementById("error-alert");
+          t.classList.toggle("d-none");
+        }, 2500)
       }else{
-        alert(data.messsage)
+        var t = document.getElementById("success-alert");
+        t.classList.toggle("d-none");
+        t.innerHTML = `<li>${data.messsage}</li>`;
         data = data.data;
         let newData = users.map((el) => (el.id === data.id ? data : el));
-        setUsers(newData);
+        setUsers(newData);        
+        setTimeout(() => {
+          var t = document.getElementById("success-alert");
+          t.classList.toggle("d-none");
+        }, 2500)
       }
     });
   }
