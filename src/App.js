@@ -4,11 +4,15 @@ import Users from './Components/Users';
 import Products from './Components/Products';
 import {Http} from './Requests/Http';
 import "bootstrap/dist/css/bootstrap.min.css";
+import $ from "jquery";
+import Popper from "popper.js";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
-const urlPost = 'http://192.168.1.12/apilaravel/public/api/register';
-const urlGet = 'http://192.168.1.12/apilaravel/public/api/user';
-const urlEdit = 'http://192.168.1.12/apilaravel/public/api/user/update';
-const urlGetProducts = 'http://192.168.1.12/apilaravel/public/api/product';
+const endPoint      = 'http://192.168.1.12/apilaravel/public/api';
+const urlPost       = endPoint + '/register';
+const urlGet        = endPoint + '/user';
+const urlEdit       = endPoint + '/user/update';
+const urlGetProducts= endPoint + '/product';
 
 function App() {
   /* GET USERS */
@@ -65,26 +69,44 @@ function App() {
   /* RENDER MAIN */
   return (
     <div class="container">
-      <div className="row">
-        <div className="col">
-          { !users ? 'Cargando...' :
-            <Users 
-            datadb = {users}
-            createData = {createData} 
-            updateData = {updateData} 
-            dataToEdit = {dataToEdit} 
-            setDataToEdit = {setDataToEdit} 
-            />
-          }
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true">Users</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="product-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab" aria-controls="products" aria-selected="false">Products</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        
+        <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="user-tab">
+          <div className="row">
+            <div className="col">
+              { !users ? 'Cargando...' :
+                <Users 
+                datadb = {users}
+                createData = {createData} 
+                updateData = {updateData} 
+                dataToEdit = {dataToEdit} 
+                setDataToEdit = {setDataToEdit} 
+                />
+              }
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          { 
-            !products ? 'Cargando...' : 
-            <Products datadb = {products.data}/> 
-          }
+
+        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="product-tab">
+          <div className="row">
+            <div className="col">
+              { 
+                !products ? 'Cargando...' : 
+                <Products datadb = {products.data}/> 
+              }
+            </div>
+          </div>          
         </div>
+
       </div>
     </div>
   );
